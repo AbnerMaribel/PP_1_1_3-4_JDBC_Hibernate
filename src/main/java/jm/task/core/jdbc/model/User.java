@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Table
 public class User {
     @Id
-    @Column
     private Long id;
 
     @Column

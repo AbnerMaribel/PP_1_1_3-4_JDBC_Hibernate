@@ -5,9 +5,25 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Util {
+    private static final String URL = "jdbc:postgresql://localhost:5432/my_db";
+    private static Connection connection;
     private static SessionFactory sessionFactory;
+
     private Util() {}
+
+    public static Connection getConnection() {
+        try {
+            connection = DriverManager.getConnection(URL);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
