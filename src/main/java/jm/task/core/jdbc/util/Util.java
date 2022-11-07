@@ -12,7 +12,6 @@ import java.sql.SQLException;
 public class Util {
     private static final String URL = "jdbc:postgresql://localhost:5432/my_db";
     private static Connection connection;
-    private static SessionFactory sessionFactory;
 
     private Util() {}
 
@@ -23,20 +22,5 @@ public class Util {
             e.printStackTrace();
         }
         return connection;
-    }
-
-    public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            try {
-                Configuration configuration = new Configuration().configure();
-                configuration.addAnnotatedClass(User.class);
-                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                        .applySettings(configuration.getProperties());
-                sessionFactory = configuration.buildSessionFactory(builder.build());
-            } catch (Exception e) {
-                System.out.println("Исключение!" + e);
-            }
-        }
-        return sessionFactory;
     }
 }
