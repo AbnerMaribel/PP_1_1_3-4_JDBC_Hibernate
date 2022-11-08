@@ -6,7 +6,6 @@ import jm.task.core.jdbc.util.Util;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
@@ -17,8 +16,8 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.executeUpdate
                     ("CREATE TABLE IF NOT EXISTS users " +
                             "(id BIGSERIAL, " +
-                            "name VARCHAR(50) NOT NULL , " +
-                            "lastName VARCHAR(50) NOT NULL , " +
+                            "name VARCHAR(50) NOT NULL, " +
+                            "lastName VARCHAR(50) NOT NULL, " +
                             "age SMALLINT NOT NULL)");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,6 +63,7 @@ public class UserDaoJDBCImpl implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
+                user.setId(resultSet.getLong("id"));
                 user.setName(resultSet.getString("name"));
                 user.setLastName(resultSet.getString("lastName"));
                 user.setAge(resultSet.getByte("age"));
