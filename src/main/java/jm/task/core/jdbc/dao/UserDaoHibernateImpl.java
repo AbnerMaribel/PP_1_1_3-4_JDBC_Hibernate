@@ -43,6 +43,7 @@ public class UserDaoHibernateImpl implements UserDao {
         session.save(user);
         session.getTransaction().commit();
         session.close();
+        System.out.println("User с именем " + name + " добавлен в базу данных");
     }
 
     @Override
