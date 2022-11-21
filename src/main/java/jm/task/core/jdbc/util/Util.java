@@ -33,7 +33,7 @@ public class Util {
                 Configuration configuration = new Configuration();
                 Properties properties = new Properties();
                 properties.put(Environment.DRIVER, "org.postgresql.Driver");
-                properties.put(Environment.URL, "jdbc:postgresql://localhost:5432/postgres");
+                properties.put(Environment.URL, "jdbc:postgresql://localhost:5432/my_db");
                 properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQL82Dialect");
                 properties.put(Environment.SHOW_SQL, "true");
                 configuration.addAnnotatedClass(User.class);
