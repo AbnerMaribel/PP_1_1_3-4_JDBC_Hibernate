@@ -2,9 +2,7 @@ package jm.task.core.jdbc.util;
 
 import jm.task.core.jdbc.model.User;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Environment;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,16 +28,13 @@ public class Util {
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
-                Configuration configuration = new Configuration();
                 Properties properties = new Properties();
-                properties.put(Environment.DRIVER, "org.postgresql.Driver");
-                properties.put(Environment.URL, "jdbc:postgresql://localhost:5432/my_db");
-                properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQL82Dialect");
-                properties.put(Environment.SHOW_SQL, "true");
-                configuration.addAnnotatedClass(User.class);
-                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                        .applySettings(configuration.getProperties());
-                sessionFactory = configuration.buildSessionFactory(builder.build());
+                properties.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
+                properties.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/my_db");
+                properties.setProperty("dialect", "org.hibernate.dialect.PostgresSQL");
+                properties.setProperty("show_sql", "true");
+                sessionFactory = new Configuration().addProperties(properties).addAnnotatedClass(User.class)
+                        .buildSessionFactory();
             } catch (Exception e) {
                 System.out.println("Исключение!" + e);
             }
